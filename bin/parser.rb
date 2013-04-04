@@ -21,7 +21,7 @@ class Parser
   end
 
   def self.sanitize(string)
-    string.gsub(/[- '-*]/, '')
+    string.scan(/[[:alnum:]]/).join
   end
 
 end
