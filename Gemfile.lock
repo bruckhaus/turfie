@@ -41,6 +41,7 @@ GEM
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    fastercsv (1.5.4)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -110,6 +111,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  fastercsv
   jquery-rails
   metanym
   mysql2
