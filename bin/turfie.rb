@@ -6,6 +6,7 @@ class Turfie
   require_relative 'parser'
   require_relative 'dictionary'
   require_relative 'thesaurus'
+  require_relative 'tld'
 
   def initialize
     @parser      = Parser.new
@@ -59,4 +60,6 @@ class Turfie
 
 end
 
+#Tld.new.load
+#exit
 Turfie.new.run
