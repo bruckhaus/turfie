@@ -12,8 +12,11 @@ class Dictionary
   end
 
   def load_dictionary
-    dictionary_file = File.dirname(__FILE__) + '/../data/wordsEn/wordsEn.txt'
     File.readlines(dictionary_file).join(' ')
+  end
+
+  def dictionary_file
+    File.dirname(__FILE__) + '/../data/wordsEn/wordsEn.txt'
   end
 
 end
