@@ -60,6 +60,4 @@ class Turfie
 
 end
 
-#Tld.new.show
-#exit
 Turfie.new.run
