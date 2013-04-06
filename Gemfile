@@ -38,4 +38,4 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'metanym'
-gem 'csv'
+gem 'awesome_print'

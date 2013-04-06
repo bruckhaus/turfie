@@ -2,6 +2,7 @@
 
 class Turfie
 
+  require 'awesome_print'
   require_relative 'cli'
   require_relative 'parser'
   require_relative 'dictionary'
@@ -17,7 +18,7 @@ class Turfie
     Cli.print_welcome
     loop do
       @suggestions = []
-      user_input = Cli.get_input
+      user_input   = Cli.get_input
       break if user_input.empty?
       suggest(user_input)
     end
@@ -32,30 +33,45 @@ class Turfie
 
   def show_suggestions
     puts 'You may like these suggestions:'
-    @suggestions.each_with_index { |suggestion, rank| puts "  #{rank}. #{suggestion}"}
+    @suggestions[0..29].each_with_index { |suggestion, rank| puts "  #{rank}. #{suggestion}" }
   end
 
   def suggest_for_word_arrays(word_arrays)
     word_arrays.each do |word_array|
       synonym_array = Thesaurus.get_synonyms_array(word_array)
-      suggest_for_synonym_array(synonym_array)
+      k = calculate_index_limit(synonym_array, 1000)
+      suggest_for_synonym_array(synonym_array, k)
     end
   end
 
-  def suggest_for_synonym_array(synonym_array, prefix = '')
+  def suggest_for_synonym_array(synonym_array, k = 3, prefix = '')
     if synonym_array.length == 1
-      synonym_array[0].each do |synonym|
+      k_shortest(k, synonym_array).each do |synonym|
         @suggestions << "#{prefix}#{Parser.sanitize(synonym)}"
       end
     else
-      synonym_array[0].each do |synonym|
-        suggest_for_synonym_array(synonym_array[1..-1], prefix + Parser.sanitize(synonym))
+      k_shortest(k, synonym_array).each do |synonym|
+        suggest_for_synonym_array(synonym_array[1..-1], k, prefix + Parser.sanitize(synonym))
       end
     end
+  end
+
+  def k_shortest(k, synonym_array)
+    synonym_array[0].sort_by { |item| item.length }[0..k-1]
   end
 
   def rank_suggestions
     @suggestions.sort_by! { |x| x.length }
+  end
+
+  def calculate_index_limit(array, max_size = 1000)
+    k = array.max_by { |item| item.length }.length
+    loop do
+      size = array.inject(1) { |size, item| size * [item.length, k].min }
+      break if size <= max_size || k <= 2
+      k -= 1
+    end
+    k
   end
 
 end
