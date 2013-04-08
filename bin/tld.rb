@@ -48,4 +48,4 @@ class Tld
 end
 
 tld = Tld.new
-ap tld.suggest('soccer')
+ap tld.suggest('tooth')
