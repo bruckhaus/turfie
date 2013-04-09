@@ -7,6 +7,14 @@ class WordNetLexicon
     @lexicon = WordNet::Lexicon.new
   end
 
+  def method_missing(method, *args, &block)
+    if @lexicon.respond_to?(method)
+      @lexicon.send(method, *args, &block)
+    else
+      raise NoMethodError
+    end
+  end
+
   # Sort array of words by similarity to a set of given anchor words:
   def sort_by_anchors(words, anchors)
     scores = {}
@@ -14,8 +22,8 @@ class WordNetLexicon
       distances    = word_distances(word, anchors)
       scores[word] = inverse_root_square_score(distances)
     end
-    puts 'scores:'
-    ap scores
+    #puts 'scores:'
+    #ap scores
     scores.sort_by { |k, v| v }.reverse.collect { |i| i[0] }
   end
 
@@ -23,7 +31,7 @@ class WordNetLexicon
     distances = []
     anchors.each do |anchor|
       distance = word_distance(word, anchor)
-      puts "distance: #{anchor}/#{word}: #{distance}"
+      #puts "distance: #{anchor}/#{word}: #{distance}"
       distances << distance
     end
     distances
@@ -40,7 +48,7 @@ class WordNetLexicon
     common_hypernym = synset1 | synset2
     #puts "common hypernym: #{common_hypernym}"
 
-    distance = (depth(synset1) + depth(synset2)) / 2.0 * depth(common_hypernym)
+    distance = depth(synset1) + depth(synset2) - 2 * depth(common_hypernym)
     #puts "distance: #{distance}"
     distance
   end

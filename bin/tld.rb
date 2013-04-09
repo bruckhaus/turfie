@@ -8,24 +8,25 @@ class Tld
   include Enumerable
 
   def initialize
-    @tlds    = load
     @lexicon = WordNetLexicon.new
+    @tlds    = load
   end
 
   def suggest(words)
     words = [words].flatten
-    @lexicon.sort_by_anchors(@tlds, words)
+    @lexicon.sort_by_anchors(@tlds, words)[0..30]
   end
 
   def show
     puts "TLDs: #{@tlds}"
   end
 
-  # remove field from header row, make unique, sort, and downcase
+  # remove first item from header row, make unique, sort, downcase, etc.
   def sanitize(tlds)
     tlds = tlds[1..-1]
     tlds.uniq!.sort!
-    tlds.map { |tld| tld.downcase }
+    tlds.map! { |tld| tld.downcase }
+    tlds.reject { |tld| @lexicon[tld].nil? }
   end
 
   def load
@@ -46,6 +47,3 @@ class Tld
   end
 
 end
-
-tld = Tld.new
-ap tld.suggest('tooth')
