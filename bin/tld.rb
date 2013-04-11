@@ -36,6 +36,7 @@ class Tld
       tlds << tld
     end
     sanitize(tlds)
+    #%w(apple mango fruit)
   end
 
   def each
