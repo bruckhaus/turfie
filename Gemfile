@@ -39,6 +39,8 @@ gem 'jquery-rails'
 
 gem 'metanym'
 gem 'awesome_print'
+gem 'wordnet'
+gem 'wordnet-defaultdb'
 
 group :test do
   gem 'rspec'
