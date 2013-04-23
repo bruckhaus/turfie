@@ -1,6 +1,6 @@
 class Cli
 
-  require_relative 'parser'
+  require_relative 'dictionary'
 
   class << self
 
@@ -10,7 +10,7 @@ class Cli
 
     def get_input
       print "\nSearch for domains: "
-      Parser.sanitize(gets.chomp)
+      Dictionary.sanitize(gets.chomp)
     end
 
   end
