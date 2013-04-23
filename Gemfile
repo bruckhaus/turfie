@@ -39,3 +39,7 @@ gem 'jquery-rails'
 
 gem 'metanym'
 gem 'awesome_print'
+
+group :test do
+  gem 'rspec'
+end
