@@ -4,13 +4,13 @@ class Turfie
 
   require 'awesome_print'
   require_relative 'cli'
-  require_relative 'parser'
   require_relative 'dictionary'
+  require_relative 'splitter'
   require_relative 'thesaurus'
   require_relative 'tld'
 
   def initialize
-    @parser      = Parser.new
+    @splitter = Splitter.new
     @suggestions = []
   end
 
@@ -25,7 +25,7 @@ class Turfie
   end
 
   def suggest(user_input)
-    word_arrays = @parser.get_word_splits(user_input)
+    word_arrays = @splitter.word_splits(user_input)
     suggest_for_word_arrays(word_arrays)
     rank_suggestions
     show_suggestions
@@ -47,11 +47,11 @@ class Turfie
   def suggest_for_synonym_array(synonym_array, k = 3, prefix = '')
     if synonym_array.length == 1
       k_shortest(k, synonym_array).each do |synonym|
-        @suggestions << "#{prefix}#{Parser.sanitize(synonym)}"
+        @suggestions << "#{prefix}#{Dictionary.sanitize(synonym)}"
       end
     else
       k_shortest(k, synonym_array).each do |synonym|
-        suggest_for_synonym_array(synonym_array[1..-1], k, prefix + Parser.sanitize(synonym))
+        suggest_for_synonym_array(synonym_array[1..-1], k, prefix + Dictionary.sanitize(synonym))
       end
     end
   end
