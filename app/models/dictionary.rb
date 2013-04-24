@@ -18,7 +18,7 @@ class Dictionary
   end
 
   def dictionary_file
-    File.dirname(__FILE__) + '/../data/wordsEn/wordsEn.txt'
+    File.dirname(__FILE__) + '/../../data/wordsEn/wordsEn.txt'
   end
 
 end

@@ -12,7 +12,7 @@ class Tld
     @tlds    = load
   end
 
-  def suggest(words)
+  def recommend(words)
     words = [words].flatten
     @lexicon.sort_by_anchors(@tlds, words)[0..30]
   end
@@ -44,7 +44,7 @@ class Tld
   end
 
   def tld_file
-    File.dirname(__FILE__) + '/../data/tld/strings-1200utc-13jun12-en.csv'
+    File.dirname(__FILE__) + '/../../data/tld/strings-1200utc-13jun12-en.csv'
   end
 
 end
