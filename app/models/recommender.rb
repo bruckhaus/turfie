@@ -2,6 +2,8 @@ class Recommender
 
   require 'awesome_print'
 
+  require_relative 'tld'
+  require_relative 'sld'
   require_relative 'thesaurus'
   require_relative 'splitter'
 
