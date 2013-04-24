@@ -1,4 +1,4 @@
-require_relative '../bin/splitter'
+require_relative '../app/models/splitter'
 
 describe Splitter do
   it 'finds all the ways to split a string into valid words' do

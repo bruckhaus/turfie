@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require_relative '../bin/cli'
+require_relative '../app/models/cli'
 
 describe Cli do
 
