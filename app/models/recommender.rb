@@ -1,5 +1,7 @@
 class Recommender
 
+  require 'awesome_print'
+
   require_relative 'thesaurus'
   require_relative 'splitter'
 
